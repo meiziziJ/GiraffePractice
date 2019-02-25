@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.practice.ssm.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.practice.ssm.model.Order" >
+    <constructor >
+      <idArg column="order_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="order_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <!-- 定义返回的Map结果集 -->
+  <resultMap id="orderMap" type="com.practice.ssm.model.Order">
+    <result property="orderId" column="order_id"></result>
+    <result property="orderNo" column="order_no"></result>
+    <collection property="orderItems" ofType="com.practice.ssm.model.OrderItem">
+      <result property="orderItemId" column="order_item_id"></result>
+      <result property="productId" column="product_id"></result>
+      <result property="quantity" column="quantity"></result>
+      <result property="oid" column="oid"></result>
+    </collection>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    order_id, order_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_hibernate_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_hibernate_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.practice.ssm.model.Order" >
+    insert into t_hibernate_order (order_id, order_no)
+    values (#{orderId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.practice.ssm.model.Order" >
+    insert into t_hibernate_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.practice.ssm.model.Order" >
+    update t_hibernate_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.practice.ssm.model.Order" >
+    update t_hibernate_order
+    set order_no = #{orderNo,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+
+  <select id="querySingleOrder" parameterType="java.lang.Integer" resultMap="orderMap">
+    select * from t_hibernate_order o, t_hibernate_order_item oi
+     where o.order_id = oi.oid
+     and o.order_id = #{orderId};
+
+  </select>
+</mapper>
