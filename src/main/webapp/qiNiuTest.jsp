@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/2/19
-  Time: 16:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,13 +24,13 @@
             dataType: 'text',//返回值类型 一般设置为json
             success: function (data)  //服务器成功响应处理函数
             {
-                var index = data.indexOf("com/");
-                var fileName = data.substring(index + 4);
+                //var index = data.indexOf("com/");
+                //var fileName = data.substring(index + 4);
                // var fileName = data.sub(index + 1); //获取上传至七牛云的图片名
                console.log("文件名：" + fileName);
 //                $("#imageUrl").html(data);
                 var img = "<img src="+data+">"
-                var btn = "<a href='<%=request.getContextPath()%>/qiniuDownload?fileName="+fileName+"'>下载图片</a>";
+                //var btn = "<a href='<%=request.getContextPath()%>/qiniuDownload?fileName="+fileName+"'>下载图片</a>";
                 var html = "<br><span>"+img+"&nbsp;&nbsp;&nbsp;"+btn+"</span>";
                 $("#imgurl").append(html);
             }
