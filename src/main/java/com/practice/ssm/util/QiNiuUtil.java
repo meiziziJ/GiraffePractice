@@ -55,6 +55,25 @@ public class QiNiuUtil {
     }
 
     /**
+     *  获得下载地址
+     */
+    /*public String getDownloadFileUrl(String filename) throws Exception {
+        *//*
+        mac  相当于Java访问七牛云的一个凭证
+         *//*
+        Mac mac = getMac();
+        *//*
+          获取文件在七牛云的域名加文件名
+         *//*
+        String baseUrl = URLUtils.makeBaseUrl(domain, filename);
+        //getPolicy 获取到路径和凭证，调用方法向七牛云发送请求
+        GetPolicy getPolicy = new GetPolicy();
+        //发送请求获得下载文件的地址
+        String downloadUrl = getPolicy.makeRequest(baseUrl, mac);
+        return downloadUrl;
+    }*/
+
+    /**
      * 下载文件
      * @param fileName
      * @throws Exception
