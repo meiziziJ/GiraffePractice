@@ -70,22 +70,6 @@ public class QiNiuController {
         return executeResult.getResult();
     }
 
-    @RequestMapping(value = "/qiniuDownload" ,method = RequestMethod.GET)
-    public String downloadFile(String fileName) {
-        QiNiuUtil qiNiuUtil = new QiNiuUtil();
-        /*
-        获取前台传来的图片名，下载图片
-         */
-        try {
-            qiNiuUtil.download(fileName);
-            System.out.println("下载成功");
-        } catch (Exception e) {
-            System.out.println("下载失败");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     private static Logger logger = LoggerFactory.getLogger(QiNiuController.class);
 
 
