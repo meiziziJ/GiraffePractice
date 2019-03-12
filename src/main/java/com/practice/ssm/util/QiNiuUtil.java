@@ -98,13 +98,6 @@ public class QiNiuUtil {
         }
     }
 
-    //删除文件
-    public void deleteFile(String filename) {
-        Mac mac = getMac();
-        RSClient client = new RSClient(mac);
-        client.delete(domain, filename);
-    }
-
     //获取凭证
     private String getUpToken() throws AuthException, JSONException {
         //密钥信息管理类  (七牛个人信息)
